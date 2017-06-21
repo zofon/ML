@@ -1,4 +1,4 @@
-NAME := 框架比较
+NAME :=myway
 
 ${NAME}.pdf : ${NAME}.tex
 	echo "latex编译一遍"
@@ -13,6 +13,7 @@ ${NAME}.pdf : ${NAME}.tex
 	evince ${NAME}.pdf
 	
 clean:
+	rm -f myway.synctex.gz
 	rm -f ${NAME}.aux ${NAME}.log ${NAME}.synctex 
 	rm -f ${NAME}.aux ${NAME}.tex.bak ${NAME}.toc 
 	rm -f ${NAME}.bbl ${NAME}.blg
