@@ -13,13 +13,9 @@ ${NAME}.pdf : ${NAME}.tex
 	evince ${NAME}.pdf
 	
 clean:
-	rm -f myway.synctex.gz
+	rm -f *.pdf
+	rm -f *.gz
 	rm -f *.aux *.log *.synctex 
 	rm -f *.aux *.tex.bak *.toc 
 	rm -f *.bbl *.blg
 	rm -r *.out *.pyg
-	rm -rf _minted-master_thesis
-	rm *.synctex.gz
-
-really-clean: clean
-	rm -f ${NAME}.pdf

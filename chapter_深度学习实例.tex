@@ -1,7 +1,18 @@
-\chapter{深度学习实例}
+\chapter{深度学习\cite{Lecun2015Deeplearning}}
 \section{CNN实例}
 CNN（Convolutional Neural Network）是深度学习算法在图像处理领域的一个应用。
 
-利用卷积神经网络将一幅图像的内容与另一幅图像的风格相结合。
+利用卷积神经网络将一幅图像的内容与另一幅图像的风格相结合。~\cite{Johnson2015}。我在一个博客中看到了一篇原理分析的文章。
+http://blog.csdn.net/Gavin__Zhou/article/details/53144148
 
-\url{https://github.com/jcjohnson/neural-style}
+深度学习是一种方法，神经网络是个模型。用了深度学习可以有效解决层数多的网络不好学习的问题。
+
+神经网络算法是实现深度学习的一种算法，深度学习是实现人工智能的一种方式。
+
+深度学习可以理解成用深度神经网络（DNN，Deep Neural Network）来进行机器学习，他俩的关系可以从这个定义中一目了然地看出来。深度神经网络（DNN）一般分为三种架构:
+    
+朴素的DNN：就是一般性的神经网络往多层扩展，缺点很多包括训练缓慢，用Backprop进行训练梯度衰减得厉害；
+深度置信（信念）网络（DBN，Deep Belief Network）：基于RBN（Restricted Boltzmann Machine）的性质而建立起来的深度神经网络，优点是比朴素的DNN训练快些，适用于最大似然概率的估计；
+卷积深度置信网络（CDBN，Convolutional Deep Belief Networks）：比DBN训练更快些，适用于非常大型的图像或者语音识别。
+    
+困难一个是训练速度，另一个就是需要大量的计算力啦，这个成本挺高的，像Google的AlphaGo用了1202个CPU+176个GPU，普通的人和公司也拿不出这么强的计算力。
