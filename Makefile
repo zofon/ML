@@ -14,12 +14,12 @@ ${NAME}.pdf : ${NAME}.tex
 	
 clean:
 	rm -f myway.synctex.gz
-	rm -f ${NAME}.aux ${NAME}.log ${NAME}.synctex 
-	rm -f ${NAME}.aux ${NAME}.tex.bak ${NAME}.toc 
-	rm -f ${NAME}.bbl ${NAME}.blg
-	rm -r ${NAME}.out ${NAME}.pyg
+	rm -f *.aux *.log *.synctex 
+	rm -f *.aux *.tex.bak *.toc 
+	rm -f *.bbl *.blg
+	rm -r *.out *.pyg
 	rm -rf _minted-master_thesis
-	rm ${NAME}.synctex.gz
+	rm *.synctex.gz
 
 really-clean: clean
 	rm -f ${NAME}.pdf
