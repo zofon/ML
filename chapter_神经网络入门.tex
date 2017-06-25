@@ -1,8 +1,38 @@
 \chapter{神经网络入门}
+首先看一张图，简单梳理了乱七八糟的概念：
+\begin{figure}
+  \centering
+  \includegraphics[width=18cm]{Figures/神经网络的类别.svg}
+  \caption{神经网络的类别}\label{神经网络的类别}
+\end{figure}
 
-大家都清楚神经网络在上个世纪七八十年代是着实火过一回的，尤其是后向传播BP算法出来之后，但90年代后被SVM之类抢了风头，再后来大家更熟悉的是SVM、AdaBoost、随机森林、GBDT、LR、FTRL这些概念。究其原因，主要是神经网络很难解决训练的问题，比如梯度消失。当时的神经网络研究进入一个低潮期，不过Hinton老人家坚持下来了。\url{http://www.cnblogs.com/52machinelearning/p/5821587.html}
+\section{神经网络简史}
+\url{http://www.36dsj.com/archives/20804}
+自图灵提出“机器与智能”，一直就有两派观点，一派认为实现人工智能必须用逻辑和符号系统，这一派看问题是自顶向下的；
+还有一派认为通过仿造大脑可以达到人工智能，这一派是自底向上的，他们认定如果能造一台机器，模拟大脑中的神经网络，
+这台机器就有智能了。前一派，我想用“想啥来啥”来形容；后一派就称之为“吃啥补啥”，估计他们的思想来源于中国古代的
+原始思维，套一句庸俗的哲学词，前者偏唯心，后者偏唯物。这两派一直是人工智能领域里两个阶级、两条路线的斗争，这
+斗争有时还你死我活。...
 
-功夫不负有心人，2006年Hinton和学生发表了利用RBM编码的深层神经网络的Science Paper：Reducing the Dimensionality of Data with Neural Networks，不过回头来看，这篇paper在当今的实用性并不强，它的更大作用是把神经网络又推回到大家视线中，利用单层的RBM自编码预训练使得深层的神经网络训练变得可能，但那时候Deep learning依然争议很多，最终真正爆发是2012年的ImageNet的夺冠，这是后话。
+
+这是一篇比较通俗易懂的文章，不至于太过简单。\url{http://www.cnblogs.com/subconscious/p/5058741.html}
+\begin{figure}
+  \centering
+  \includegraphics[width=15cm]{Figures/神经网络发展历程.jpg}
+  \caption{神经网络发展历程}\label{神经网络发展历程}
+\end{figure}
+
+大家都清楚神经网络在上个世纪七八十年代是着实火过一回的，尤其是后向传播BP算法出来之后，但90年代后被SVM之类抢了风头，
+再后来大家更熟悉的是SVM、AdaBoost、随机森林、GBDT、LR、FTRL这些概念。究其原因，主要是神经网络很难解决训练的问
+题，比如梯度消失。当时的神经网络研究进入一个低潮期，不过Hinton老人家坚持下来了。
+
+功夫不负有心人，2006年Hinton和学生发表了利用RBM编码的深层神经网络的Science Paper：Reducing the 
+Dimensionality of Data with Neural Networks，不过回头来看，这篇paper在当今的实用性并不强，它的更大作
+用是把神经网络又推回到大家视线中，利用单层的RBM自编码预训练使得深层的神经网络训练变得可能，但那时候Deep lear
+ning依然争议很多，最终真正爆发是2012年的ImageNet的夺冠，这是后话。
+
+有一篇对Reducing the Dimensionality of Data with Neural Networks进行简单分析的博客：\\
+\url{http://www.cnblogs.com/52machinelearning/p/5821587.html}
 
 ImageNet是世界图片分类大赛，下面是目前的成绩展示。\url{http://www.cnblogs.com/kuiyuan/p/4286328.html}
 \begin{verbatim}
@@ -21,10 +51,15 @@ ImageNet是世界图片分类大赛，下面是目前的成绩展示。\url{http
 首先从生物的大脑讲起，文章参考:\url{http://blog.csdn.net/zzwu/article/details/574931}
 \section{生物学的大脑}
 大脑是一块灰色的、像奶冻一样的东西。它并不像脑中的CPU那样，利用单个或少数几个处理单元来进行工作。如果你有一具新鲜地保存到福尔马林中的尸体，用一把锯子小心地将它的头骨锯开，搬掉头盖骨后，你就能看到熟悉的脑组织皱纹。大脑的外层象一个大核桃那样，全部都是起皱的[图0左]，这一层组织就称皮层(Cortex)。如果你再小心地用手指把整个大脑从头颅中端出来，再去拿一把外科医生用的手术刀，将大脑切成片，那么你将看到大脑有两层: 灰色的外层(这就是“灰质”一词的来源，但没有经过福尔马林固定的新鲜大脑实际是粉红色的。如图~\ref{大脑皮层解剖图}) 和白色的内层。灰色层只有几毫米厚，其中紧密地压缩着几十亿个被称作neuron（神经细胞、神经元）的微小细胞。白色层在皮层灰质的下面，占据了皮层的大部分空间，是由神经细胞相互之间的无数连接线组成（但没有神经细胞本身，正如印刷电路板的背面，只有元件的连线，而没有元件本身那样，译注）。皮层象核桃一样起皱，这可以把一个很大的表面区域塞进到一个较小的空间里。这与光滑的皮层相比能容纳更多的神经细胞。人的大脑大约含有10G（即100亿）个这样的微小处理单元;一只蚂蚁的大脑大约也有250,000个。
-\begin{figure}[H]
+
+
+\begin{figure}[htbp]
   \centering
-  \includegraphics[width=10cm]{Figures/大脑皮层解剖图.jpg}
+  \subfigure[1]{\begin{minipage}{6cm}\includegraphics[width=4cm]{Figures/大脑模型.jpg}\end{minipage}}
+  \subfigure[2]{\begin{minipage}{6cm}\includegraphics[width=4cm]{Figures/大脑皮层解剖图.jpg}\end{minipage}}
   \caption{大脑皮层解剖图}\label{大脑皮层解剖图}
 \end{figure}
 
 这是一个神经网络游戏的网站，很有意思。\url{http://playground.tensorflowjiaocheng.com/#JJML}
+\section{Backpropagation Algorithm（反向传导算法）}
+\url{http://blog.csdn.net/bixiwen_liu/article/details/52892141}
