@@ -13,7 +13,6 @@ ${NAME}.pdf : ${NAME}.tex
 	evince ${NAME}.pdf
 	
 clean:
-	rm -f *.pdf
 	rm -f *.gz
 	rm -f *.aux *.log *.synctex 
 	rm -f *.aux *.tex.bak *.toc 
